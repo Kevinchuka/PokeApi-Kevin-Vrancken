@@ -3,7 +3,7 @@ import type { Pokemon } from "../types/pokemon.interface";
 import { getRandomIntInclusive } from "../lib/random-number";
 
 const POKEMON_API_URL = 'https://pokeapi.co/api/v2/pokemon';
-const MAX_POKEMON_COUNT = 151;
+const MAX_POKEMON_COUNT = 600;
 
 export const getRandomPokemon = async (): Promise<Pokemon> => {
     const randomId = getRandomIntInclusive(1, MAX_POKEMON_COUNT);
