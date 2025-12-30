@@ -14,7 +14,7 @@ const PokemonDisplay = ({ pokemon, isLoading, gameState }: Props) => {
     const image = pokemon?.image
     const name = pokemon?.name
 
-    console.log(name)
+    //   console.log(name)
 
     return (
         <div className="card">
