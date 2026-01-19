@@ -1,11 +1,11 @@
 const Spinner = () => {
     return (
-        <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
+        <div className="spinner-wrap">
+            <div className="spinner-orbit" />
+            <div className="spinner-core" />
+            <span className="visually-hidden">Loading...</span>
         </div>
-    )
-}
+    );
+};
 
-export default Spinner
+export default Spinner;
