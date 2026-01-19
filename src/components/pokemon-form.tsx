@@ -3,46 +3,59 @@ import type { GameState } from "../hooks/use-game-manager";
 
 interface Props {
     handlePokemonNameSubmit: (userInput: string) => void;
-    gameState: GameState
+    revealPokemon: () => void;
+    onToggleHints: () => void;
+    showHints: boolean;
+    gameState: GameState;
 }
 
-const PokemonForm = ({ handlePokemonNameSubmit, gameState }: Props) => {
-    const [inputValue, setInputValue] = useState('');
+const PokemonForm = ({ handlePokemonNameSubmit, revealPokemon, onToggleHints, showHints, gameState }: Props) => {
+    const [inputValue, setInputValue] = useState("");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!inputValue.trim()) {
-            console.log("Input is empty")
             return;
         }
         handlePokemonNameSubmit(inputValue.trim().toLowerCase());
-        setInputValue('');
-    }
+        setInputValue("");
+    };
+
+    const isPlaying = gameState === "playing";
 
     return (
-        <form
-            className="input-group my-3"
-            onSubmit={handleSubmit}
-        >
-            <input
-                type="text"
-                className="form-control"
-                placeholder="¿Quién es ese Pokémon?"
-                aria-label="¿Quien es ese pokemon?"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                autoFocus
-                disabled={gameState !== "playing"}
-            />
-            <button
-                className="btn btn-outline-dark"
-                type="submit"
-                disabled={!inputValue.trim() || gameState !== "playing"}
-            >
-                Jugar
-            </button>
+        <form className="game-form" onSubmit={handleSubmit}>
+            <div className="game-form__input">
+                <i className="bi bi-search" />
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Escribe el nombre del Pokémon..."
+                    aria-label="¿Quien es ese pokemon?"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    autoFocus
+                    disabled={!isPlaying}
+                />
+            </div>
+            <div className="game-form__actions">
+                <button className="btn btn-primary" type="submit" disabled={!inputValue.trim() || !isPlaying}>
+                    ¡Adivinar!
+                </button>
+                <button
+                    className={`btn btn-outline-light ${showHints ? "is-active" : ""}`}
+                    type="button"
+                    disabled={!isPlaying}
+                    onClick={onToggleHints}
+                >
+                    {showHints ? "Ocultar pistas" : "Mostrar pistas"}
+                </button>
+                <button className="btn btn-outline-danger" type="button" disabled={!isPlaying} onClick={revealPokemon}>
+                    Rendirse
+                </button>
+            </div>
         </form>
-    )
-}
+    );
+};
 
-export default PokemonForm
+export default PokemonForm;
