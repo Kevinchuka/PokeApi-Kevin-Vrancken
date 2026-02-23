@@ -20,6 +20,9 @@ export const getRandomPokemon = async (): Promise<Pokemon> => {
             id: data.id,
             name: data.name,
             image: data?.sprites?.other?.["official-artwork"]?.front_default ?? null,
+            types: data?.types?.map((typeInfo: { type: { name: string } }) => typeInfo.type.name) ?? [],
+            height: data?.height ?? 0,
+            weight: data?.weight ?? 0,
         };
     }
 
